@@ -1,0 +1,80 @@
+<div class="card mb-4" *ngIf="isBookingFormDisplayed && selectedSlotNumber >= 0">
+  <div class="card-body">
+    <h3 class="display-5">Reserve Parking Slot: {{ selectedSlotNumber }} </h3>
+
+    <form class="form-row mt-2 mb-4" (ngSubmit)="onAddSlot(addSlotForm)" #addSlotForm="ngForm">
+
+      <div class="row">
+        <div class="form-group col-xs-12 ml-3 mt-3 mb-3">
+            <label for="vehicleTypeDropDown">Vehicle Type</label>
+            <select name="vehicleTypeDropDown" id="vehicleTypeDropDown" class="form-control" ngModel>
+              <option value="">Select</option>
+              <option value="Car">Car</option>
+              <option value="Motorbike">Motorbike</option>
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12 ml-3 mt-3 mb-3">
+            <label for="levelDropDown">Level</label>
+            <select name="levelDropDown" id="levelDropDown" class="form-control" ngModel>
+              <option value="">Select</option>
+              <option value="Level 1">Level 1</option>
+              <option value="Level 2">Level 2</option>
+            </select>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="form-group col-md-6">
+            <label for="customerName">Customer Name</label>
+            <input type="text" ngModel name="customerName" id="customerName" class="form-control" placeholder="John Peters">
+          </div>
+    
+          <div class="form-group col-md-6">
+            <label for="licensePlateNumber">License Plate Number</label>
+            <input type="text" ngModel name="licensePlateNumber" id="licensePlateNumber" class="form-control"
+              placeholder="M-XX-1234">
+          </div>
+    
+          <div class="form-group col-md-6">
+            <label for="vehicleModel">Vehicle Model</label>
+            <input type="text" ngModel name="vehicleModel" id="vehicleModel" class="form-control"
+              placeholder="BMW 6 Series">
+          </div>
+    
+          <div class="form-group col-md-6">
+            <label for="startDate">Start Date</label>
+            <input type="date" ngModel name="startDate" id="startDate" class="form-control">
+          </div>
+    
+          <div class="form-group col-md-6">
+            <label for="startTime">Start Time</label>
+            <input type="time" ngModel name="startTime" id="startTime" class="form-control">
+          </div>
+    
+          <div class="form-group col-md-6">
+            <label for="hours">Hours</label>
+            <input type="number" ngModel min="1" max="24" name="hours" id="hours" class="form-control" placeholder="Hours">
+          </div>
+    
+          <div class="btn-toolbar ml-3">
+            <button type="submit" class="btn btn-success mr-2">Save</button>
+            <button type="button" class="btn btn-warning" (click)="onCancelSlot(addSlotForm)">Cancel</button>
+          </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="lead">Choose your slot:</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 p-2" *ngFor="let slot of slots; let i = index;">
+      <button class="btn btn-primary" type="button" [ngClass]="getColors(slot)" [disabled]="slot.isBooked" (click)="onSlotSelect(i)">Slot {{slot.id}} </button>
+    </div>
+  </div>
+</div>
